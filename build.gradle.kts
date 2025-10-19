@@ -110,7 +110,7 @@ tasks.jacocoTestReport {
             classDirectories.files.map {
                 fileTree(it) {
                     exclude(
-                        "**/MainKt$*.class",
+                        "MockApiService$*.class",
                     )
                 }
             }
@@ -125,7 +125,7 @@ tasks.jacocoTestCoverageVerification {
     classDirectories.setFrom(tasks.jacocoTestReport.get().classDirectories)
 
     val excludesList = listOf(
-        "rk.powermilk.search.MainKt*",
+        "rk.powermilk.fetcher.service.MockApiService*",
     )
 
     violationRules {
