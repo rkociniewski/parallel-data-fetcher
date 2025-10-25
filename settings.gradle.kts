@@ -1,4 +1,4 @@
-rootProject.name = "parallel-date-fetcher"
+rootProject.name = "parallel-data-fetcher"
 
 pluginManagement {
     repositories {
