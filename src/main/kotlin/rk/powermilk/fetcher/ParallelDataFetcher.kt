@@ -47,12 +47,12 @@ class ParallelDataFetcher(private val api: MockApiService) {
 
                 attemptResult.exceptionOrNull() is TimeoutCancellationException -> {
                     lastException = attemptResult.exceptionOrNull() as TimeoutCancellationException
-                    println("Timeout on attempt $it for ${source.name}: ${lastException?.message}")
+                    println("Timeout on attempt $it for ${source.name}: ${lastException.message}")
                 }
 
                 attemptResult.exceptionOrNull() is IOException -> {
                     lastException = attemptResult.exceptionOrNull() as IOException
-                    println("IO error on attempt $it for ${source.name}: ${lastException?.message}")
+                    println("IO error on attempt $it for ${source.name}: ${lastException.message}")
                     if (it < maxRetries - 1) {
                         delay(Numbers.BACKOFF * (1 shl it))
                     }

@@ -11,14 +11,13 @@ group = "rk.powermilk"
 /**
  * project version
  */
-version = "1.0.0-snapshot"
+version = "1.0.13"
 
-val javaVersion = JavaVersion.VERSION_21
+val javaVersion: JavaVersion = JavaVersion.VERSION_21
 val jvmTargetVersion = JvmTarget.JVM_21
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.test.logger)
     alias(libs.plugins.dokka)
     alias(libs.plugins.detekt)
     jacoco
@@ -33,24 +32,15 @@ java {
     targetCompatibility = javaVersion
 }
 
-// dependencies
 dependencies {
     detektPlugins(libs.detekt)
     implementation(libs.kotlinx)
     testImplementation(libs.junit)
     testImplementation(libs.junit.params)
+    testImplementation(libs.kotlin.test)
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.test)
     testImplementation(libs.turbine)
-    testImplementation(kotlin("test"))
-}
-
-testlogger {
-    showStackTraces = false
-    showFullStackTraces = false
-    showCauses = false
-    slowThreshold = 10000
-    showSimpleNames = true
 }
 
 kotlin {
@@ -68,7 +58,7 @@ detekt {
 
 dokka {
     dokkaSourceSets.main {
-        jdkVersion.set(javaVersion.toString().toInt()) // Used for linking to JDK documentation
+        jdkVersion.set(javaVersion.toString().toInt())
         skipDeprecated.set(false)
     }
 
@@ -95,7 +85,6 @@ tasks.test {
     finalizedBy(tasks.jacocoTestReport)
 }
 
-
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
     reports {
@@ -103,7 +92,6 @@ tasks.jacocoTestReport {
         html.required.set(true)
         csv.required.set(false)
     }
-
 
     classDirectories.setFrom(
         files(
